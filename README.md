@@ -1,4 +1,4 @@
-# 第一天
+# day01
   ## 功能
     1、使用 vue-cli 简单搭建edogs E宠商城项目
     2、大致画了一下整体布局，没有写静态页面，直接在组件模板
@@ -40,16 +40,24 @@
       在当前使用的组件引入
         import Swiper from 'swiper'
         import 'swiper/dist/css/swiper.min.css'  （样式）
-      1）模版必须使用它的结构
+      1）模版必须使用它的结构,类名也必须一样，如果要创建多个swiper对象，那可以给
+          swiper-container后面再加一个属于自己的类名，配置获取到该元素时，两个类名同时写
                   <div class="swiper-container">
                     <div class="swiper-wrapper">
                       <div class="swiper-slide">
-                          // 上面三层结构必不可少的，下面a标签及img是的可替换的内容
                         <a href="javascript:" class="link_to">
+                           // 上面三层结构必不可少的，下面a标签及img是的可替换的内容
+                          <img src="./images/2-bander1.jpg">
+                        </a>
+                      </div>
+                      <div class="swiper-slide">
+                        <a href="javascript:" class="link_to">
+                           // 上面三层结构必不可少的，下面a标签及img是的可替换的内容
                           <img src="./images/2-bander1.jpg">
                         </a>
                       </div>
                     </div>
+                    <div class="swiper-pagination"></div>
                   </div>
       2）js配置
           <script>
@@ -80,6 +88,8 @@
               .swiper-slide
                 width 100%
                 .link_to
+                  display block
+                  width 100%
                   >img
                     display block
                     width 100%
@@ -101,3 +111,32 @@
            最终参考到body的百分百，并且要设置box-sizing border-box，如果还不行，就在App.vue组件的模版标签的
            根标签div也加一个与主页面一致
 
+      4、swiper的监视方式两种
+      1）使用watch
+          // 第二中实现使用Swiper显示轮播，创建Swiper对象方法
+          watch: {
+             foodTypes(){
+               this.$nextTick(() => {
+                 //swiper
+                 var swiper = new Swiper('.swiper-container', {
+                   loop: true,
+                   pagination: {
+                     el: '.swiper-pagination'
+                   }
+                 })
+               })
+             }
+           }
+
+# day 02
+  ## 1、功能
+    1、将首页的静态页面写完了，一般的轮播和滑动效果都做了
+    2、分类页面的写到分类列表
+    
+  ## 2、问题
+    （1）使用stylus的混合时，报错expected "indent", got "function and"
+      原因：写媒体查询时，关键字and与后面的括号没有空格，所以报错了
+    （2）首页的小狗眨眼的动画还是无法实现
+    （3）首页整体Y方向滑动效果，无法看到底部的内容，给该容器添加的padding-bottom
+        内容是能看到了，橡皮筋效果也没有影响，但是使用默认滚动条或者是滚轮滑动就会
+        看到设置的padding空白的
