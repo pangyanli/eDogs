@@ -135,11 +135,11 @@
             </li>
           </ul>
         </div>
-        <!-- 秒杀   miaosha-->
+        <!-- 秒杀   没有找到数据链接-->
         <div class="miaosha">
           <img src="./images/6-m.jpg" alt="">
         </div>
-        <!-- 每日疯抢  surprise  -->
+        <!-- 每日疯抢   -->
         <div class="qiang">
           <div class="qiang_top">
             <div class="qiang_logo">
@@ -210,15 +210,12 @@
         <div class=" brand">
           <img src="./images/9-pin.jpg" alt="">
         </div>
-        <!-- gif图片   gif -->
         <div class="gif_img">
           <img src="./images/10-baner3.gif" alt="">
         </div>
-        <!-- vip 尊享服务 vip -->
         <div class="vip">
           <img src="./images/11-vip.jpg" alt="">
         </div>
-        <!--  e宠服务  vip_services-->
         <div class="go_sever">
           <ul>
             <li>
@@ -235,11 +232,10 @@
             </li>
           </ul>
         </div>
-        <!-- 大牌团   dapaituan  -->
         <div class="zhe">
           <img src="./images/13-zhe.jpg" alt="">
         </div>
-        <!-- 特价轮播    tejia_baner -->
+        <!-- 特价轮播 -->
         <div class="swiper-container tejia">
           <div class="swiper-wrapper tejia_wrap">
             <div class="swiper-slide tejia_silde">
@@ -276,11 +272,10 @@
           <!-- Add Pagination -->
           <div class="swiper-pagination"></div>
         </div>
-        <!-- 大牌好货   haohuo  -->
         <div class="haohuo">
           <img src="./images/15-hao.jpg" alt="">
         </div>
-        <!-- 通用广告  haohuo_list-->
+        <!-- 通用广告 -->
         <div class="baner_first">
           <ul>
             <li>
@@ -413,7 +408,6 @@
             </li>
           </ul>
         </div>
-        <!-- 最惨奖  zuican -->
         <div class="can">
           <a href="javascript:;" class="can_img">
             <img src="./images/17-can.jpg" alt="">
