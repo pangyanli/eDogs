@@ -135,11 +135,11 @@
             </li>
           </ul>
         </div>
-        <!-- 秒杀   没有找到数据链接-->
+        <!-- 秒杀   miaosha-->
         <div class="miaosha">
           <img src="./images/6-m.jpg" alt="">
         </div>
-        <!-- 每日疯抢   -->
+        <!-- 每日疯抢  surprise  -->
         <div class="qiang">
           <div class="qiang_top">
             <div class="qiang_logo">
@@ -210,12 +210,15 @@
         <div class=" brand">
           <img src="./images/9-pin.jpg" alt="">
         </div>
+        <!-- gif图片   gif -->
         <div class="gif_img">
           <img src="./images/10-baner3.gif" alt="">
         </div>
+        <!-- vip 尊享服务 vip -->
         <div class="vip">
           <img src="./images/11-vip.jpg" alt="">
         </div>
+        <!--  e宠服务  vip_services-->
         <div class="go_sever">
           <ul>
             <li>
@@ -232,10 +235,11 @@
             </li>
           </ul>
         </div>
+        <!-- 大牌团   dapaituan  -->
         <div class="zhe">
           <img src="./images/13-zhe.jpg" alt="">
         </div>
-        <!-- 特价轮播 -->
+        <!-- 特价轮播    tejia_baner -->
         <div class="swiper-container tejia">
           <div class="swiper-wrapper tejia_wrap">
             <div class="swiper-slide tejia_silde">
@@ -272,10 +276,11 @@
           <!-- Add Pagination -->
           <div class="swiper-pagination"></div>
         </div>
+        <!-- 大牌好货   haohuo  -->
         <div class="haohuo">
           <img src="./images/15-hao.jpg" alt="">
         </div>
-        <!-- 通用广告 -->
+        <!-- 通用广告  haohuo_list-->
         <div class="baner_first">
           <ul>
             <li>
@@ -408,21 +413,25 @@
             </li>
           </ul>
         </div>
+        <!-- 最惨奖  zuican -->
         <div class="can">
           <a href="javascript:;" class="can_img">
             <img src="./images/17-can.jpg" alt="">
           </a>
         </div>
+        <!-- 留言区 zuican_content -->
         <div class="liuyan">
           <a href="javascript:;" class="liuyan_img">
             <img src="./images/18-liu.jpg" alt="">
           </a>
         </div>
+        <!-- 特别星期  special -->
         <div class="xing">
           <a href="javascript:;" class="xing_img">
             <img src="./images/19-xing.jpg" alt="">
           </a>
         </div>
+        <!-- 潮品预售   special_list -->
         <div class="chaopin">
           <div class="chaopin_left">
             <a href="javascript:;" class="chaopin_left_img">
@@ -438,11 +447,13 @@
             </a>
           </div>
         </div>
+        <!-- 栏目  lanmu -->
         <div class="lanmu">
           <a href="javascript:;" class="lanmu_img">
             <img src="./images/21-lan.jpg" alt="">
           </a>
         </div>
+        <!--  总和栏目  lanmu_list-->
         <div class="zonghe">
           <ul>
             <li>

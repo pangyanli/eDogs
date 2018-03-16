@@ -419,16 +419,19 @@
             <img src="./images/17-can.jpg" alt="">
           </a>
         </div>
+        <!-- 留言区 zuican_content -->
         <div class="liuyan">
           <a href="javascript:;" class="liuyan_img">
             <img src="./images/18-liu.jpg" alt="">
           </a>
         </div>
+        <!-- 特别星期  special -->
         <div class="xing">
           <a href="javascript:;" class="xing_img">
             <img src="./images/19-xing.jpg" alt="">
           </a>
         </div>
+        <!-- 潮品预售   special_list -->
         <div class="chaopin">
           <div class="chaopin_left">
             <a href="javascript:;" class="chaopin_left_img">
@@ -444,11 +447,13 @@
             </a>
           </div>
         </div>
+        <!-- 栏目  lanmu -->
         <div class="lanmu">
           <a href="javascript:;" class="lanmu_img">
             <img src="./images/21-lan.jpg" alt="">
           </a>
         </div>
+        <!--  总和栏目  lanmu_list-->
         <div class="zonghe">
           <ul>
             <li>
