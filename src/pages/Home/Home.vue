@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <!-- 首页头部 -->
     <header  class="home_header">
       <div class="home_header_top">
         <span  class="dog">狗狗 |</span>
@@ -55,9 +56,10 @@
         </ul>-->
       </div>
     </header >
+    <!-- 首页主体内容 -->
     <div class="home_container">
       <div class="home_content">
-        <!-- 轮播图 -->
+        <!-- 轮播图   JSON数据： dog_banner -->
         <div class="swiper-container first-baner">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -94,10 +96,11 @@
           <!-- Add Pagination -->
           <div class="swiper-pagination"></div>
         </div>
+        <!-- 315我们  JSON数据： dog_img-->
         <div class="we">
           <img src="./images/3-315.jpg" alt="">
         </div>
-        <!-- 图标导航 -->
+        <!-- 图标导航  menu_list -->
         <div class="nav_icon">
           <ul>
             <li>
@@ -132,10 +135,11 @@
             </li>
           </ul>
         </div>
+        <!-- 秒杀   没有找到数据链接-->
         <div class="miaosha">
           <img src="./images/6-m.jpg" alt="">
         </div>
-        <!-- 每日疯抢 -->
+        <!-- 每日疯抢   -->
         <div class="qiang">
           <div class="qiang_top">
             <div class="qiang_logo">
@@ -202,6 +206,7 @@
             </ul>
           </div>
         </div>
+        <!-- 品牌力量   brand_power-->
         <div class=" brand">
           <img src="./images/9-pin.jpg" alt="">
         </div>
@@ -484,10 +489,8 @@
         </footer>
       </div>
     </div>
+    <!-- 动画gougou -->
     <div class="dog">
-      <a href="javascript:;" class="dog_eye">
-        <img src="./images/dog.png" alt="">
-      </a>
     </div>
   </div>
 </template>
@@ -879,18 +882,15 @@
       right 0
       bottom 100px
       z-index 100
-      .dog_eye
-        display block
-        width 85px
-        height 94px
-        >img
-          display block
-          background-image url('./images/dog.png')
-          background-image-repeat no-repeat
-          background-image-size 50%
-          animation dog_animation 2s steps(1,end) infinite
-          @keyframes dog_animation
-            50% background-position -87px 0
+      width 43px
+      height 47px
+      background-image url('./images/dog.png')
+      background-repeat no-repeat
+      background-size 85px 47px
+      animation dog_animation 2s steps(1,end) infinite
+      @keyframes dog_animation
+        50%
+          background-position -43px 0
 
 
 

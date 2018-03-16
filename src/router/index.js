@@ -14,11 +14,17 @@ export default new VueRouter({
   routes: [
     {
       path: '/home',
-      component: Home
+      component: Home,
+      meta: {
+        showFooter: true
+      }
     },
     {
       path: '/categorys',
-      component: Categorys
+      component: Categorys,
+      meta: {
+        showFooter: true
+      }
     },
     {
       path: '/cart',

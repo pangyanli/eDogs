@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <FooterGuide/>
+    <FooterGuide v-show="$route.meta.showFooter"/>
   </div>
 </template>
 
@@ -16,6 +16,9 @@
 
 
 <style lang="stylus" rel="stylesheet/stylus">
+  html,body
+    height 100%
+    overflow hidden
   #app
     width 100%
     height 100%

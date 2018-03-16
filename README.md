@@ -1,6 +1,6 @@
 # day01
   ## 功能
-    1、使用 vue-cli 简单搭建edogs E宠商城项目
+    1、使用 vue-cli 简单搭建epet E宠商城项目
     2、大致画了一下整体布局，没有写静态页面，直接在组件模板
     2、使用 vue-router 技术，搭建首页/分类/购物车/我的E宠 4个一级路由
     3、使用 BScroll 技术实现导航菜单的水平滑动（橡皮筋）效果
@@ -107,12 +107,16 @@
           }else{  // 已经存在scroll对象，则要通知该对象更新
             this.scroll.refresh()
           }
-          注意: 注意home_container的高度要确定（不用具体，参考父级的百分百就可以，一层一层的父级都要参考，
+          注意: 注意使用的条件，①容器的高度要确定，②滑动的列表高度不确定但是必须要高于容器的高度
+            home_container的高度要确定（不用具体，参考父级的百分百就可以，一层一层的父级都要参考，
            最终参考到body的百分百，并且要设置box-sizing border-box，如果还不行，就在App.vue组件的模版标签的
            根标签div也加一个与主页面一致
 
       4、swiper的监视方式两种
-      1）使用watch
+      1）在mounted的中dispatch('actionName',callback),
+          ①callback +  $nextTick() ②在相应的action函数中接收callback，并且在commit之后判断
+          并调用（callback && callback（））
+      2）使用watch + $nextTick()
           // 第二中实现使用Swiper显示轮播，创建Swiper对象方法
           watch: {
              foodTypes(){
@@ -140,3 +144,121 @@
     （3）首页整体Y方向滑动效果，无法看到底部的内容，给该容器添加的padding-bottom
         内容是能看到了，橡皮筋效果也没有影响，但是使用默认滚动条或者是滚轮滑动就会
         看到设置的padding空白的
+  ## 注意：
+     1、使用1px适配时要注意，使用的元素不要设置padding值，可以设置margin，否则的这条
+       1px线会被盖住，看不见的
+       具体使用如下，用stylus写的混合，使用时，在当前组件直接引入就可以了
+           // 注意and与后面的括号要有一个空格，关键字与关键字之间要有空格
+           //根据像素比缩放1px像素边框
+           @media only screen and (-webkit-device-pixel-ratio: 2)
+             .border-1px
+               &::before
+                 transform scaleY(.5)
+           @media only screen and (-webkit-device-pixel-ratio: 3)
+             .border-1px
+               &::before
+                 transform scaleY(.333333333333)
+           
+           // 一像素下边框
+           bottom-border-1px($color)
+             position relative
+             &::before
+               content ''
+               position absolute
+               z-index 200px
+               left 0
+               right 0
+               bottom 0
+               height 1px
+               background-color $color
+               transform scaleY(.5)
+           
+           // 一像素上边框
+           top-border-1px($color)
+             position relative
+             &::before
+               content ''
+               position absolute
+               z-index 200px
+               top 0
+               left 0
+               right 0
+               height 1px
+               background $color
+               transform scaleY(.5)
+           
+           //根据像素比来使用 2x图 3x图
+           bg-image($url)
+             background-image:url($url+"@2x.png")
+             @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
+               background-image:url($url+"@3x.png")
+    
+           //清除浮动
+           clearFix()
+           *zoom 1
+           &::after
+             content ''
+             display block
+             clear both
+# day 03
+   ## 1、任务
+     （1）将购物车和注册登录页面的静态页面写完
+     （2）初步实现这两个页面的基本动画效果
+     （3）使用mock创建数据
+   ## 2、遇到的问题
+       ###（1）在购物车页面
+             1）问题： 购物车的页面，点击右上角的分类按钮，整个分类列表和头部都隐藏了，
+               原因：头部的z-index没有设置，因为分类列表设置了一个padding来给头部留位置的,
+                 所以一点击就没有了，只要给头部开启层级了就可以
+             2）问题：点击购物车页面右上角按钮，分类列表的显示与隐藏的动画,列表是从下面
+                  滑上来的，然后又自动隐藏
+               原因：设置动画的时候，slide-enter,slide-leave-to应该heigth设置为0，也就是进入前和
+                  离开后的状态应该是隐藏的，设定的列表高度是100px的高度
+               具体代码如下：
+                模版代码：
+                    <transition name="slide">
+                      <div class="show" v-show="isShow">
+                        <a href="javascript:;" class="link_to">
+                          <span class="iconfont icon-shouye1"></span>
+                          <span>首页</span>
+                        </a>
+                        ...5个a链接
+                      </div>
+                    </transition>
+                stylus样式：   
+                     .show
+                      padding-top 50px
+                      width 100%
+                      height 100px
+                      overflow hidden
+                      background #fff
+                      display flex
+                      text-align center
+                      align-items center
+                      justify-content space-around
+                      &.slide-enter-active
+                        transition all 1s ease-out
+                      &.slide-leave-active
+                        transition all 1.5s ease-out
+                      &.slide-enter,&.slide-leave-to
+                        height 0px
+              3）问题：点击购物车页面和登录页面左上角返回按钮，跳转不对，或者没有反应
+       ###（2）底部导航FooterGuide的显示与隐藏
+                在路由的index.js中需要显示的组件路由中添加一个meta属性的配置为true
+                 ①  {  
+                      path: '/home',
+                      component: Home,
+                      meta: {  // 自定义名字showFoter，设置为true
+                        showFooter: true
+                      }
+                   }
+                 ②在App.vue主组件中在FooterGuide标签中通过$route.meta设置是否显示
+                    <FooterGuide v-show="$route.meta.showFooter"/>
+       ### （3）登录页面 Person.vue
+             问题：选中登录方式显示下面的小白三角无法贴到父级的底部，达不到理想的效果
+             解决：给父级设置 line-height 为 0 ，再设置一个margin-top就不会与父级的兄弟元素的文本重合了
+   ## 3、使用到技术
+      （1）使用插件vue-lazyload图片懒加载
+        安装：npm i vue-lazyload --save
+        引入：在js入口主文件index.js中引入 import VueLazyload from 'vue-lazyload'
+        声明：Vue.use(VueLazyload,{loading}), // 这样内部会定义一个全局指令lazy
