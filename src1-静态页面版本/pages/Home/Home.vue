@@ -4,6 +4,7 @@
     <header  class="home_header">
       <div class="home_header_top">
         <span  class="dog">狗狗 |</span>
+        aasfas;flkjas;fj
         <span  class="city">重庆</span>
         <span class="icon">
          <i class="iconfont icon-xiala"></i>
@@ -570,7 +571,7 @@
     height 100%
     width 100%
     position relative
-    // 头部样式
+  // 头部样式
     .home_header
       position fixed
       top 0
@@ -586,7 +587,7 @@
       background #fff
       z-index 100
       .home_header_top
-        margin-left 20px
+        text-align right
         width 100%
         .icon
           .iconfont
@@ -619,7 +620,7 @@
                 color green
                 border-bottom 1px solid green
 
-    // 主体样式
+  // 主体样式
     .home_container
       box-sizing border-box
       width 100%
@@ -628,7 +629,7 @@
       /*padding-bottom 50px*/
       .home_content
         padding-bottom 150px
-        // 主体轮播
+      // 主体轮播
         .swiper-container
           width 100%
           .swiper-wrapper
@@ -649,7 +650,7 @@
             display block
             width 100%
             height 100%
-        // 导航列表
+      // 导航列表
         .nav_icon
           width 100%
           >ul
@@ -902,10 +903,4 @@
       @keyframes dog_animation
         50%
           background-position -43px 0
-
-
-
-
-
-
 </style>

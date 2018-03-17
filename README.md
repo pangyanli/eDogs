@@ -35,7 +35,7 @@
           autoOpenBrowser: false, 将false改成true就可以了
      2、安装stylus依赖包
       npm install stylus stylus-loader --save-dev
-     3、安装swiper
+    3、安装swiper
       npm install --save swiper
       在当前使用的组件引入
         import Swiper from 'swiper'
@@ -57,6 +57,7 @@
                         </a>
                       </div>
                     </div>
+                    // 小圆点
                     <div class="swiper-pagination"></div>
                   </div>
       2）js配置
@@ -96,7 +97,7 @@
             .swiper-pagination
               >span.swiper-pagination-bullet-active
                 background #02a774
-      4、安装BScroll
+    4、安装BScroll
           npm install --save better-scroll
           当前组件引入 import BScroll from 'better-scroll'
           1)在mounted函数中创建BScroll对象
@@ -112,7 +113,7 @@
            最终参考到body的百分百，并且要设置box-sizing border-box，如果还不行，就在App.vue组件的模版标签的
            根标签div也加一个与主页面一致
 
-      4、swiper的监视方式两种
+    5、swiper的监视方式两种
       1）在mounted的中dispatch('actionName',callback),
           ①callback +  $nextTick() ②在相应的action函数中接收callback，并且在commit之后判断
           并调用（callback && callback（））
@@ -131,7 +132,32 @@
                })
              }
            }
-
+    6、使用mock模拟数据
+      （1）原理：拦截ajax请求，生成随机的数据返回，但是现在我没有使用随机的，而是自己做的JSON数据
+      （2）相关链接：a.http://mockjs.com/      b.https://github.com/nuysoft/Mock
+      （3）安装：npm install mockjs --save
+      （4）使用：
+          1）在mock文件夹中的MockServer.jx中引入mockjs和JSON数据
+              import Mock from 'mockjs'
+              import homeData from './homepage.json'
+              // 向外提供多个数据接口，格式如下：
+              //1、向外提供头部menus的数据，注意code是标识成功返回信息的
+              Mock.mock('/menus', {code:0, data:homeData.menus})
+          2）在JS入口主文件引入（引入方式与css样式类似，就可以直接用数据了）、
+              import './mock/MockServer'
+          3）在api文件夹中引入之前封装好的ajax.js（使用axios封装的，注意最后返回直接是data数据了，
+          直接取数据就可以了，如果不封装就返回的是promise对象，取数据要response.data才可以） 
+          4）api/index.js：当前项目接口ajax请求模块
+              根据mock提供的接口，写ajax请求函数,比如
+             // 向外提供首页home的数据
+             Mock.mock('/home_data', {code: 0 , data: homeDate})
+          5）在store/state.js中初始化要显示的数据   
+              homeDate: {}
+              然后就是vuex的一套流程了：
+                actions.js --> mutation-typys --> mutations.js --> 组件  
+              最后记得在js入口主文件配置store  
+    7、使用axios封装ajax
+         （1）安装 ： npm install axios --save    
 # day 02
   ## 1、功能
     1、将首页的静态页面写完了，一般的轮播和滑动效果都做了
@@ -206,7 +232,7 @@
      （2）初步实现这两个页面的基本动画效果
      （3）使用mock创建数据
    ## 2、遇到的问题
-       ###（1）在购物车页面
+       （1）在购物车页面
              1）问题： 购物车的页面，点击右上角的分类按钮，整个分类列表和头部都隐藏了，
                原因：头部的z-index没有设置，因为分类列表设置了一个padding来给头部留位置的,
                  所以一点击就没有了，只要给头部开启层级了就可以
@@ -243,7 +269,9 @@
                       &.slide-enter,&.slide-leave-to
                         height 0px
               3）问题：点击购物车页面和登录页面左上角返回按钮，跳转不对，或者没有反应
-       ###（2）底部导航FooterGuide的显示与隐藏
+                  给FooterGuide.vue中配置跳转的方法改成push()，不要使用replace(),使用
+                  replace(),会导致浏览器没有历史记录，返回不了上一页
+       （2）底部导航FooterGuide的显示与隐藏
                 在路由的index.js中需要显示的组件路由中添加一个meta属性的配置为true
                  ①  {  
                       path: '/home',
@@ -254,9 +282,15 @@
                    }
                  ②在App.vue主组件中在FooterGuide标签中通过$route.meta设置是否显示
                     <FooterGuide v-show="$route.meta.showFooter"/>
-       ### （3）登录页面 Person.vue
+       （3）登录页面 Person.vue
              问题：选中登录方式显示下面的小白三角无法贴到父级的底部，达不到理想的效果
              解决：给父级设置 line-height 为 0 ，再设置一个margin-top就不会与父级的兄弟元素的文本重合了
+       （4）在首页实现menus导航菜单的动态数据展现，选中当前menu显示的样式出不来
+            解决：1）在data中初始化一个currentIndex（当前menu的下标），然后给遍历出来的li中的span标签设置
+                :class="{on: currentIndex === index}
+                2）给li绑定事件，并传入index   -->   @click="selectMenu(index)"
+                3)在methods中更新currentIndex -->  selectMenu(index){this.currentIndex = index}
+                                                                           
    ## 3、使用到技术
       （1）使用插件vue-lazyload图片懒加载
         安装：npm i vue-lazyload --save

@@ -32,6 +32,7 @@
     methods: {
       goto(path) {
         //跳转到指定的路径
+        debugger
         this.$router.push(path)
       }
     }
