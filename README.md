@@ -296,3 +296,25 @@
         安装：npm i vue-lazyload --save
         引入：在js入口主文件index.js中引入 import VueLazyload from 'vue-lazyload'
         声明：Vue.use(VueLazyload,{loading}), // 这样内部会定义一个全局指令lazy
+
+# day 04
+  ## 一、任务
+      1、分类页面做动态数据交互
+      2、品牌分类的静态页面以及数据交互
+  ## 二、问题
+      1、问题：Categorys.vue 头部tab切换
+          仅仅使用true/false来判断显示选中的类型并显示相应的内容不够，只要点击不管是当
+          前选中的还是没选中的，都会切换，这样就导致选中显示的内容不对应了
+      解决：1）在data初始化定义 selectType: 1  // 即默认选中分类 ,2表示品牌
+            2） <a :class="{on:selectType===1}">分类</a>  // 只有类型符合了才显示选中的样式
+                <a :class="{on:selectType===2}">品牌</a>
+            3）绑定点击事件，并传入对应的selectType类型
+              <div class="categorys_list" @click="selected(1)">
+              <div class="pinpai" @click="selected(2)">
+            4）显示对应的内容,给对应的内容做标识
+                <div class="categorys_content" v-show="selectType===1">
+               <div class="brand_container" v-show="selectType===2"> 
+            5）在methods中定义事件函数 
+               selected(selectType){ this.selectType = selectType}
+              
+        

@@ -1,19 +1,19 @@
 <template>
-  <div class="categorys">
+  <div class="categorys_brand">
     <div class="categorys_header bottom-border-1px">
-      <div class="categorys_list">
-        <a href="javascript:;" class="categorys_text on">分类</a>
+      <div class="categorys_list" @click="selected(1)">
+        <a href="javascript:;" class="categorys_text" :class="{on:selectType===1}">分类</a>
       </div>
-      <div class="pinpai">
-        <a href="javascript:;" class="pinpai_text">品牌</a>
+      <div class="pinpai" @click="selected(2)">
+        <a href="javascript:;" class="pinpai_text" :class="{on:selectType===2}">品牌</a>
         <a> <i class="iconfont icon-search"></i> </a>
       </div>
     </div>
-    <div class="categorys_content">
+    <div class="categorys_content" v-show="selectType===1">
       <div id="categorys_list">
         <ul>
-          <li class="list on">为您推荐</li>
-          <li class="list">狗粮主食</li>
+          <li class="list on" v-for="(classify,index) in categorys" :key="index">{{classify.name}}</li>
+         <!-- <li class="list">狗粮主食</li>
           <li class="list">狗狗零食</li>
           <li class="list">狗狗服务</li>
           <li class="list">狗狗窝垫</li>
@@ -24,7 +24,7 @@
           <li class="list">狗狗牵引</li>
           <li class="list">狗狗美容</li>
           <li class="list">狗狗周边</li>
-          <li class="list">狗狗清洁</li>
+          <li class="list">狗狗清洁</li>-->
         </ul>
       </div>
       <div id="pinpai_container">
@@ -96,12 +96,80 @@
         </div>
       </div>
     </div>
+    <div class="brand_container" v-show="selectType===2">
+      <div class="brand_content">
+        <div class="brand_item">
+          <div class="brand_list_title">
+            <span>—— 推荐品牌 ——</span>
+          </div>
+          <div class="brand_list">
+            <ul class="list_ul">
+              <li class="list_li">
+                <div class="img_container">
+                  <img src="./imags/3-pinpai1.jpg" alt="">
+                </div>
+                <p class="name">冠能</p>
+                <p class=" name country">美国</p>
+              </li>
+              <li class="list_li">
+                <div class="img_container">
+                  <img src="./imags/3-pinpai2.jpg" alt="">
+                </div>
+                <p class="name">ZIWI Peek</p>
+                <p class=" name country">新西兰</p>
+              </li>
+              <li class="list_li">
+                <div class="img_container">
+                  <img src="./imags/3-pinpai3.jpg" alt="">
+                </div>
+                <p class="name">原始猎食渴望</p>
+                <p class=" name country">加拿大</p>
+              </li>
+              <li class="list_li">
+                <div class="img_container">
+                  <img src="./imags/3-pinpai1.jpg" alt="">
+                </div>
+                <p class="name">冠能</p>
+                <p class=" name country">美国</p>
+              </li>
+              <li class="list_li">
+                <div class="img_container">
+                  <img src="./imags/3-pinpai2.jpg" alt="">
+                </div>
+                <p class="name">ZIWI Peek</p>
+                <p class=" name country">新西兰</p>
+              </li>
+              <li class="list_li">
+                <div class="img_container">
+                  <img src="./imags/3-pinpai3.jpg" alt="">
+                </div>
+                <p class="name">原始猎食渴望</p>
+                <p class=" name country">加拿大</p>
+              </li>
+              <li class="list_li">
+                <div class="img_container">
+                  <img src="./imags/3-pinpai2.jpg" alt="">
+                </div>
+                <p class="name">ZIWI Peek</p>
+                <p class=" name country">新西兰</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll'
+  import {mapState} from 'vuex'
   export default{
+    data(){
+      return {
+        selectType: 1 // 默认选中分类
+      }
+    },
     mounted(){
       // 左边分类列表滑动效果
       if(!this.scrollCategorys){
@@ -111,7 +179,6 @@
       }else{
         this.scrollCategorys.refresh()
       }
-
       // 右侧热门品牌
       if(!this.scrollRemen){
         this.scrollRemen = new BScroll('#pinpai_container',{
@@ -120,13 +187,23 @@
       }else{
         this.scrollRemen.refresh()
       }
+    },
+    computed: {
+      ...mapState(['categorys'])
+    },
+    methods: {
+      // 选择分类还是品牌
+      selected(selectType){
+          this.selectType = selectType
+      }
     }
   }
+
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"
-  .categorys
+  .categorys_brand
     width 100%
     height 100%
     position relative
@@ -148,6 +225,7 @@
         text-align right
         padding-right 10px
         line-height 50px
+        padding-bottom 10px
         .categorys_text
           color black
           font-size 14px
@@ -161,7 +239,6 @@
         align-items flex-end
         padding 0 15px
         width 50%
-        text-align left
         .pinpai_text
           color black
           font-size 14px
@@ -196,6 +273,7 @@
             border-bottom 1px solid #f5f5f5
             &.on
               background  #f5f5f5
+              color red
 
 
 
@@ -269,5 +347,51 @@
 
 
 
+
+    .brand_container
+      width 100%
+      height 100%
+      padding-top 55px
+      box-sizing border-box
+      .brand_content
+        width 100%
+        background #ffffff
+        .brand_item
+          width 100%
+          padding 20px 10px 0
+          text-align center
+          color #999
+          font-size 12px
+          box-sizing border-box
+          margin-bottom 10px
+          .brand_list
+            margin-top 20px
+            width 100%
+            .list_ul
+              width 100%
+              display flex
+              flex-wrap wrap
+              justify-content space-between
+              .list_li
+                width 32%
+                margin-bottom 15px
+                .img_container
+                  width 100%
+                  height 60px
+                  border 1px solid #e2e2e2
+                  box-sizing border-box
+                  padding 20px 10px
+                  margin-bottom 5px
+                  >img
+                    margin-top -15px
+                    width 100%
+                    display block
+                .name
+                  width 100%
+                  height 20px
+                  line-height 20px
+                  color black
+                  &.country
+                    color #999
 
 </style>
