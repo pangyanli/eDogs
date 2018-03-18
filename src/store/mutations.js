@@ -2,7 +2,8 @@
 import {
   RECEIVE_HOME_DATA,
   RECEIVE_CATEGORYS,
-  RECEIVE_BRAND
+  RECEIVE_BRAND,
+  RECORD_USER_INFO
 } from './mutation-types'
 
 export default {
@@ -17,6 +18,10 @@ export default {
   // 3、接收品牌brand的数据
   [RECEIVE_BRAND](state,{brand}){
     state.brand = brand
+  },
+  //保存用户信息
+  [RECORD_USER_INFO](state,{userInfo}){
+    state.userInfo = userInfo
   }
 }
 

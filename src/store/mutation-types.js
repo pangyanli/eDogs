@@ -9,3 +9,7 @@ export const RECEIVE_CATEGORYS = 'receive_categorys'
 
 // 3、接收品牌brand的数据
 export const RECEIVE_BRAND = 'receive_brand'
+
+// 4、保存用户信息
+export const RECORD_USER_INFO = 'record_user_info'
+

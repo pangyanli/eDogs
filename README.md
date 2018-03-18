@@ -31,13 +31,13 @@
         cd edogs    （进入到项目文件夹）
         npm install   （安装所有依赖，或者直接 npm i）
         npm run dev    （运行项目,访问: localhost:8080）
-        注意：如果想要npm run dev后自动打开浏览器，可以在config文件夹/index.js，改一下配置
+        注意：如果想要npm run dev后自动打开浏览器，可以在config文件夹/app.js，改一下配置
           autoOpenBrowser: false, 将false改成true就可以了
      2、安装stylus依赖包
       npm install stylus stylus-loader --save-dev
     3、安装swiper
       npm install --save swiper
-      在当前使用的组件引入
+      在当前使用的组件引入(实现图片轮播)
         import Swiper from 'swiper'
         import 'swiper/dist/css/swiper.min.css'  （样式）
       1）模版必须使用它的结构,类名也必须一样，如果要创建多个swiper对象，那可以给
@@ -97,6 +97,13 @@
             .swiper-pagination
               >span.swiper-pagination-bullet-active
                 background #02a774
+       ## 使用swiper来做文字导航菜单的滑动的配置
+                // menu菜单导航
+                new Swiper('.home_menu.swiper-container',{
+                  slidesPerView: 5,  //设置一页显示的个数
+                  //spaceBetween: 20   // 每个之间的间距
+                })     
+                
     4、安装BScroll
           npm install --save better-scroll
           当前组件引入 import BScroll from 'better-scroll'
@@ -147,7 +154,7 @@
               import './mock/MockServer'
           3）在api文件夹中引入之前封装好的ajax.js（使用axios封装的，注意最后返回直接是data数据了，
           直接取数据就可以了，如果不封装就返回的是promise对象，取数据要response.data才可以） 
-          4）api/index.js：当前项目接口ajax请求模块
+          4）api/app.js：当前项目接口ajax请求模块
               根据mock提供的接口，写ajax请求函数,比如
              // 向外提供首页home的数据
              Mock.mock('/home_data', {code: 0 , data: homeDate})
@@ -316,5 +323,56 @@
                <div class="brand_container" v-show="selectType===2"> 
             5）在methods中定义事件函数 
                selected(selectType){ this.selectType = selectType}
-              
-        
+      2、问题：分类页面右侧数据的获取不正确，无法展示       
+         解决：1）初始化当前选中的分类下标为 currentCateIndex：0  即默认选中第一个
+              2）当遍历categorys得到的index === currentCateIndex，即显示选中的样式
+              3）点击选中的li并传入对应的index,在点击函数中更新this.currentCateIndex === index
+              4) 基于当前的currentCateIndex查找到对应的右侧品牌对象 并遍历cate_list
+                  v-for="(pinpaiItem,index) in categorys[currentCateIndex].cate_list"
+              5）遍历cate_list 得到数组中的对象，用v-if来对取出对象中的type类型进行判断是否显示
+                  v-if="pinpaiItem.type === 0"   // 显示第一个对象的数据
+                  v-if="pinpaiItem.type === 2"   // 显示第二个对象的数据
+                  如果两个都存在，那就都显示
+      3、问题：给选项添加当前选中的css样式，字体颜色和下划线，但是如何使该下划线贴到底部
+        解决：给将当前的内联元素转换为inline-block元素，添加下边框就可以了,不能转block，
+              如果转成block那下划线的长度远远大于当前元素内容的宽度
+# day 05
+  ## 一、任务
+      1、稍微调调各个页面的css样式
+      2、之前没有写首页头部的广告，今天尝试添加
+      3、登录前台的基本验证
+  ## 二、问题：
+      1、分类页面的右侧品牌内容，动态获取数据后就不能滑动了
+         原因：动态获取数据，直接在父级遍历导致原来的结构发生变化了
+         解决：将数据的遍历放到子级分别遍历但是就要遍历两次了
+      2、手机获取验证码效果没有出来，还在研究
+  ## 三、使用到的技术
+    1、Mint UI 移动端组件库
+      1、使用Mint UI中JS组件：Indicator组件
+        具体使用步骤如下：
+        1）下载安装：npm install --save mint-ui  （主页： http://mint-ui.github.io/#!/zh-cn）
+        2）下载按需打包的plugin：npm install --save-dev babel-plugin-component 
+        3）修改  .babel配置
+                "plugins": ["transform-runtime",["component", [
+                  {
+                    "libraryName": "mint-ui",
+                    "style": true
+                  }
+                ]]]
+        4)因为多个组件页面显示时都需要用这个loading加载图效果，所以可以写成一个混合
+          在common文件夹中创建 common/mixins/index.js
+                  import { Indicator } from 'mint-ui'
+                  export const setLoading = {
+                    mounted(){   // 设置loading图
+                      Indicator.open({
+                        text: '数据加载中...',
+                        spinnerType: 'fading-circle'
+                      })
+                      setTimeout(()=>{   // 关闭loading图
+                        Indicator.close()
+                      },1000)
+                    }
+                  }
+          5）组件中使用：
+              import {setLoading} from '../../common/mixins'
+              export default{  mixins:[setLoading]  }

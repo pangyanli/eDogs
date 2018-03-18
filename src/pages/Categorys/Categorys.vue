@@ -12,146 +12,54 @@
     <div class="categorys_content" v-show="selectType===1">
       <div id="categorys_list">
         <ul>
-          <li class="list on" v-for="(classify,index) in categorys" :key="index">{{classify.name}}</li>
-         <!-- <li class="list">狗粮主食</li>
-          <li class="list">狗狗零食</li>
-          <li class="list">狗狗服务</li>
-          <li class="list">狗狗窝垫</li>
-          <li class="list">狗狗生活</li>
-          <li class="list">狗狗玩具</li>
-          <li class="list">狗狗保健</li>
-          <li class="list">狗狗医疗</li>
-          <li class="list">狗狗牵引</li>
-          <li class="list">狗狗美容</li>
-          <li class="list">狗狗周边</li>
-          <li class="list">狗狗清洁</li>-->
+          <li class="list" :class="{on: currentCateIndex===index}" v-for="(classify,index) in categorys"
+              :key="index" @click="clickCurrentCategory(index)">{{classify.name}}</li>
         </ul>
       </div>
-      <div id="pinpai_container">
+      <div id="pinpai_container" v-if="categorys[currentCateIndex]">
         <div class="pinpai_list">
-          <div class="zhuliang">
+          <div class="zhuliang" v-if="pinpaiItem.type === 0"
+               v-for="(pinpaiItem,index) in categorys[currentCateIndex].cate_list">
             <div class="title">
-              <span>狗狗主粮</span>
+              <span>{{pinpaiItem.title}}</span>
               <a class="link_to">
                 <span>全部商品<i class="iconfont icon-quanbu"></i></span>
               </a>
             </div>
             <ul class="zhuliang_ul">
-              <li class="zhuliang_list">
-                <img src="./imags/1-1.jpg" alt="">
-                <span>进口狗粮</span>
-              </li>
-              <li class="zhuliang_list">
-                <img src="./imags/1-2.jpg" alt="">
-                <span>国产狗粮</span>
-              </li>
-              <li class="zhuliang_list">
-                <img src="./imags/1-3.jpg" alt="">
-                <span>处方狗粮</span>
-              </li>
-              <li class="zhuliang_list">
-                <img src="./imags/1-1.jpg" alt="">
-                <span>冻干狗粮</span>
+              <li class="zhuliang_list" v-for="(good,index) in pinpaiItem.list">
+                <img :src="good.photo" alt="">
+                <span>{{good.name}}</span>
               </li>
             </ul>
           </div>
-          <div class="remen">
-            <p class="remen_title">热门品牌</p>
+          <div class="remen" v-if="pinpaiItem.type === 2"
+               v-for="(pinpaiItem,index) in categorys[currentCateIndex].cate_list">
+            <p class="remen_title">{{pinpaiItem.title}}</p>
             <ul class="remen_ul">
-              <li class="remen_li">
-                <img src="./imags/2-1.jpg" alt="">
-                <span>天衡宝（原雪山）</span>
+              <li class="remen_li" v-for="(pinPai,index) in pinpaiItem.list">
+                <img :src="pinPai.logo" alt="">
+                <span>{{pinPai.name}}</span>
               </li>
-              <li class="remen_li">
-                <img src="./imags/2-1.jpg" alt="">
-                <span>天衡宝（原雪山）</span>
-              </li>
-              <li class="remen_li">
-                <img src="./imags/2-1.jpg" alt="">
-                <span>天衡宝（原雪山）</span>
-              </li>
-              <li class="remen_li">
-                <img src="./imags/2-1.jpg" alt="">
-                <span>天衡宝（原雪山）</span>
-              </li>
-              <li class="remen_li">
-                <img src="./imags/2-1.jpg" alt="">
-                <span>天衡宝（原雪山）</span>
-              </li>
-              <li class="remen_li">
-                <img src="./imags/2-1.jpg" alt="">
-                <span>天衡宝（原雪山）</span>
-              </li>
-              <li class="remen_li">
-                <img src="./imags/2-1.jpg" alt="">
-                <span>天衡宝（原雪山）</span>
-              </li>
-              <li class="remen_li">
-                <img src="./imags/2-1.jpg" alt="">
-                <span>天衡宝（原雪山）</span>
-              </li>
-
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="brand_container" v-show="selectType===2">
+    <div id="brand_container" v-show="selectType===2">
       <div class="brand_content">
-        <div class="brand_item">
+        <div class="brand_item" v-for="(item,index) in brand">
           <div class="brand_list_title">
-            <span>—— 推荐品牌 ——</span>
+            <span>—— {{item.title}} ——</span>
           </div>
           <div class="brand_list">
             <ul class="list_ul">
-              <li class="list_li">
+              <li class="list_li" v-for="(pinpaiGood,index) in item.list">
                 <div class="img_container">
-                  <img src="./imags/3-pinpai1.jpg" alt="">
+                  <img :src="pinpaiGood.logo" alt="">
                 </div>
-                <p class="name">冠能</p>
-                <p class=" name country">美国</p>
-              </li>
-              <li class="list_li">
-                <div class="img_container">
-                  <img src="./imags/3-pinpai2.jpg" alt="">
-                </div>
-                <p class="name">ZIWI Peek</p>
-                <p class=" name country">新西兰</p>
-              </li>
-              <li class="list_li">
-                <div class="img_container">
-                  <img src="./imags/3-pinpai3.jpg" alt="">
-                </div>
-                <p class="name">原始猎食渴望</p>
-                <p class=" name country">加拿大</p>
-              </li>
-              <li class="list_li">
-                <div class="img_container">
-                  <img src="./imags/3-pinpai1.jpg" alt="">
-                </div>
-                <p class="name">冠能</p>
-                <p class=" name country">美国</p>
-              </li>
-              <li class="list_li">
-                <div class="img_container">
-                  <img src="./imags/3-pinpai2.jpg" alt="">
-                </div>
-                <p class="name">ZIWI Peek</p>
-                <p class=" name country">新西兰</p>
-              </li>
-              <li class="list_li">
-                <div class="img_container">
-                  <img src="./imags/3-pinpai3.jpg" alt="">
-                </div>
-                <p class="name">原始猎食渴望</p>
-                <p class=" name country">加拿大</p>
-              </li>
-              <li class="list_li">
-                <div class="img_container">
-                  <img src="./imags/3-pinpai2.jpg" alt="">
-                </div>
-                <p class="name">ZIWI Peek</p>
-                <p class=" name country">新西兰</p>
+                <p class="name">{{pinpaiGood.name}}</p>
+                <p class=" name country">{{pinpaiGood.address}}</p>
               </li>
             </ul>
           </div>
@@ -164,37 +72,70 @@
 <script>
   import BScroll from 'better-scroll'
   import {mapState} from 'vuex'
+  import {setLoading} from '../../common/mixins'
+
   export default{
+    mixins: [setLoading],
     data(){
       return {
-        selectType: 1 // 默认选中分类
+        selectType: 1, // 默认选中分类
+        currentCateIndex: 0  // 默认选中分类列表的第一个为您推荐
       }
     },
     mounted(){
-      // 左边分类列表滑动效果
-      if(!this.scrollCategorys){
-        this.scrollCategorys = new BScroll('#categorys_list',{
-          click: true
+      this.$store.dispatch('getCategorys',() => {
+        this.$nextTick(() => {
+          // 左边分类列表滑动效果
+          if(!this.scrollCategorys){
+            this.scrollCategorys = new BScroll('#categorys_list',{
+              click: true
+            })
+          }else{
+            this.scrollCategorys.refresh()
+          }
         })
-      }else{
-        this.scrollCategorys.refresh()
-      }
-      // 右侧热门品牌
-      if(!this.scrollRemen){
-        this.scrollRemen = new BScroll('#pinpai_container',{
-          click: true
+      })
+      this.$store.dispatch('getBrand', () => {
+        this.$nextTick(() => {
+          // 右侧热门品牌
+          if(!this.scrollRemen){
+            this.scrollRemen = new BScroll('#pinpai_container',{
+              click: true
+            })
+          }else{
+            this.scrollRemen.refresh()
+          }
         })
-      }else{
-        this.scrollRemen.refresh()
-      }
+      })
     },
     computed: {
-      ...mapState(['categorys'])
+      ...mapState(['categorys','brand'])
     },
     methods: {
-      // 选择分类还是品牌
+      // 头部选择分类还是品牌
       selected(selectType){
-          this.selectType = selectType
+        this.selectType = selectType
+        /* 创建品牌页面的滑动的BScroll对象，点击品牌时才去创建BScroll对象，创建太早了就没有效果了
+        不能在分发事件的回调函数中创建，因为请求回来的数据不点击品牌，那就是隐藏的，所有没有高度的*/
+        if(selectType===2){
+            this.$nextTick(()=>{
+              if(!this.scrollBrand){
+                this.scrollBrand = new BScroll('#brand_container',{
+                  click: true
+                })
+              }else{
+                this.scrollBrand.refresh()
+              }
+            });
+        }
+
+        if(selectType===1){
+
+        }
+      },
+      //选分类列表的内容
+      clickCurrentCategory(index){
+        this.currentCateIndex = index
       }
     }
   }
@@ -223,30 +164,35 @@
       .categorys_list
         width 50%
         text-align right
-        padding-right 10px
+        padding-right 5%
+        height 50px
         line-height 50px
-        padding-bottom 10px
+        font-size 13px
         .categorys_text
-          color black
-          font-size 14px
-          padding-bottom 5px
+          color #333
+          display inline-block
+
           &.on
             color red
             border-bottom 1px solid red
       .pinpai
-        display flex
-        justify-content space-between
-        align-items flex-end
-        padding 0 15px
         width 50%
+        padding-left 5%
+        height 50px
+        line-height 50px
+        font-size 13px
+        float left
         .pinpai_text
-          color black
-          font-size 14px
-          padding-bottom 5px
+          color #333
+          display inline-block
           &.on
             color red
             border-bottom 1px solid red
 
+
+        .iconfont
+          float right
+          margin-right 15px
 
     .categorys_content
       width 100%
@@ -348,7 +294,7 @@
 
 
 
-    .brand_container
+    #brand_container
       width 100%
       height 100%
       padding-top 55px

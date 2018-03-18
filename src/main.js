@@ -1,11 +1,18 @@
 /* JS入口问文件 */
 import Vue from 'vue'
 import App from './App.vue'
+import VueLazyload from 'vue-lazyload'
+
+import loading from './common/images/loading.gif'
 import router from './router'
 import store from './store'
-
 // 使用mock提供的数据
 import './mock/MockServer'
+
+Vue.use( VueLazyload,{
+  // loading: url，下面是简写方式
+  loading
+})
 
 new Vue({
   el: '#app',
