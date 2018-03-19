@@ -10,10 +10,10 @@ export const reqCategorys = () => ajax('/categorys')  // url与mock的接口一�
 export const reqBrand = () => ajax('/brand')
 
 // 4、请求普通登录
-export const commonLogin = ({name,pwd}) => ajax ('/api/login_pwd',{name,pwd},'POST')
+export const commonLogin = ({name,pwd}) => ajax ('/login_pwd',{name,pwd},'POST')
 
 // 5、获取短信验证码
-export const sendCode = (phone) => ajax('/api/sendcode',{phone})
+export const sendCode = (phone) => ajax('/sendcode',{phone})
 
 // 6、手机验证码登录
-export const codeLogin = ({name,captcha,code}) => ('/api/login_sms',{name,captcha,code},'POST')
+export const codeLogin = ({name,captcha,code}) => ('/login_sms',{name,captcha,code},'POST')

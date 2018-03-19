@@ -376,3 +376,48 @@
           5）组件中使用：
               import {setLoading} from '../../common/mixins'
               export default{  mixins:[setLoading]  }
+# day 06
+  ## 一、问题
+      1、问题：购物车页面（Cart.vue），点击右侧的按钮，导航切换导航栏的显示与隐藏，
+        点击显示出来没有问题，但是点击收回去的时候下面的内容就整体的网上蹦了一下，导致
+        大的购物车图片与上一个元素的top距离的效果不一样
+        原因：分别给要显示与隐藏的元素和下面的兄弟元素都添加了padding-top:50px
+              所以当show隐藏的时候，下面的兄弟元素就会往上去了
+        解决：应该直接给页面的到包裹器cart加一个padding-top:50px，其他的就不用加了，
+        因为头部已经定位了，脱离了文档流
+      2、问题：登录功能的点击获取动态码，但是后台没有返回
+        原因：没有使用代理来解决ajax请求的跨域问题（前台服务器是8080，后台的是3000），所以
+            发的ajax就自动找到mock了，就报404找不到了
+        解决：1）在api/index.js ： 给所有向后台ajax请求获取数据的路由路径添加/api，即    
+            export const sendCode = (phone) => ajax('/sendcode',{phone})改成下面的
+            export const sendCode = (phone) => ajax('/api/sendcode',{phone})
+            2）在config/index.js中找到proxyTable（专门用来设置代理的），配置如下
+                proxyTable: {
+                      '/api': { // 匹配所有以 '/api'开头的请求路径
+                        target: 'http://localhost:3000', // 代理目标的基础路径
+                        changeOrigin: true, // 支持跨域
+                        pathRewrite: {// 重写路径: 去掉路径中开头的'/api'
+                          '^/api': ''
+                        }
+                      }
+                    }
+            3）在组件中调用函数异步请求获取
+                import {sendCode} from '../../api'
+                 async getCode(){
+                    let result = await sendCode (phone)
+                 ｝   
+            4）注意，因为后台使用发短信的是第三方的平台，如果自己没有买，那是发送不了，
+                所以需要在gshop_server/util/sms_util.js将文件中的一段代码注掉，直接通过验证就可以了
+                   //4. 发送请求, 并得到返回的结果, 调用callback
+                      callback(true);
+                     /* request({
+                          method : 'POST',
+                          url : url,
+                          headers : headers,
+                          body : body,
+                          json : true
+                      }, function (error, response, body) {
+                          console.log(error, response, body);
+                          callback(body.statusCode==='000000');
+                          // callback(true);
+                      });*/

@@ -72,7 +72,6 @@
     width 100%
     height 100%
     background #f5f5f5
-    padding-top 50px
     .cart_header_wrap
       bottom-border-1px(#ddd)
       width 100%
@@ -99,6 +98,7 @@
             &.icon-fenlei1
               text-align right
     .show
+      padding-top 50px
       width 100%
       height 100px
       background #fff

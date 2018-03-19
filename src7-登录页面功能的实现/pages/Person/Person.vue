@@ -89,14 +89,16 @@
       </div>
     </div>
     <!-- 通过标签属性传递给子组件数据，并绑定子组件分发的事件的监听 -->
-    <alert-tip v-if="alertShow" :alertText="alertText" @closeTip="closeTip"></alert-tip>
+    <alert-tip v-if="alertShow" :alertText="alertText" @click="closeTip"></alert-tip>
   </div>
 </template>
 
 <script>
-  import {commonLogin,sendCode ,codeLogin} from '../../api'
+  import {setLoading} from '../../common/mixins'
+  import {commonLogin,sendCode,codeLogin} from '../../api'
   import AlertTip from '../../components/AlertTip/AlertTip.vue'
   export default{
+    mixins:[setLoading],
     data(){
       return {
         // showLoginWay用来初始化向上白色箭头的指向是普通登录，同时控制普通登录或者手机登录的页面
@@ -127,15 +129,14 @@
         if(this.rightPhone){
           this.computedTime = 60
           this.intervalId = setInterval(()=>{
-            this.computedTime--
+            this.computedTime --
             if(this.computedTime === 0){
               clearInterval(this.intervalId)
             }
           },1000)
         }
-        let {phone}= this
         // 向手机发送验证码
-        let result = await sendCode (phone)
+        let result = await sendCode
         if(result.code=== 1){  // 请求失败
           clearInterval(this.intervalId)  // 清除定时器
           this.alertShow = true
@@ -149,8 +150,8 @@
       //  3、登录
       async login (){
         let result
-        if(this.showLoginWay===2){  // 如果是手机登录
-          let{rightPhone,code, captcha} = this
+        if(this.showLoginWay){  // 如果是手机登录
+          let{rightPhone,phone,code, captcha} = this
             // 表单验证
           if(!rightPhone){
             this.alertShow = true
@@ -187,13 +188,14 @@
           // 得到用户信息
           const userInfo = result.data
           //保存到state中
-          this.$store.dispatch('recordUserInfo',{userInfo})
+          thid.$store.dispatch('recordUserInfo',{userInfo})
           this.$router.push('/home')
         }else{
           this.alertShow = true
           this.alertText = result.msg
         }
       },
+
       // 4、关闭提示框
       closeTip(){
         this.alertShow = false

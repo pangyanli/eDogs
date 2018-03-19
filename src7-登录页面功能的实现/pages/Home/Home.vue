@@ -54,7 +54,7 @@
           </div>
           <!-- 3、315我们  JSON数据： dog_img-->
           <div class="we">
-            <img v-lazy="homeData.dog_img" alt="">
+            <img :src="homeData.dog_img" alt="">
           </div>
           <!-- 4、图标导航  menu_list -->
           <div class="nav_icon">
@@ -66,7 +66,7 @@
           </div>
           <!-- 5、秒杀   miaosha-->
           <div class="miaosha">
-            <img v-lazy="homeData.miaosha" alt="">
+            <img :src="homeData.miaosha" alt="">
           </div>
           <!-- 6、每日疯抢  surprise  -->
           <div class="qiang">
@@ -88,7 +88,7 @@
             <div class="qiang_img">
               <ul v-if="homeData.surprise">
                 <li v-for="(good,index) in homeData.surprise.goods" :key="index">
-                  <img v-lazy="good.img_ulr" alt="">
+                  <img :src="good.img_ulr" alt="">
                   <span class="price">￥{{good.sale_price}}</span>
                   <span>省{{good.little_price}}</span>
                 </li>
@@ -97,27 +97,27 @@
           </div>
           <!-- 7、品牌力量   brand_power-->
           <div class=" brand">
-            <img v-lazy="homeData.brand_power" alt="">
+            <img :src="homeData.brand_power" alt="">
           </div>
           <!--8、 gif图片   gif -->
           <div class="gif_img">
-            <img v-lazy="homeData.gif" alt="">
+            <img :src="homeData.gif" alt="">
           </div>
           <!-- 9、vip 尊享服务 vip -->
           <div class="vip">
-            <img v-lazy="homeData.vip" alt="">
+            <img :src="homeData.vip" alt="">
           </div>
           <!-- 10、 e宠服务  vip_services-->
           <div class="go_sever">
             <ul>
               <li v-for="(vipServer,index) in homeData.vip_services" :key="index">
-                <img v-lazy="vipServer" alt="">
+                <img :src="vipServer" alt="">
               </li>
             </ul>
           </div>
           <!-- 11、大牌团   dapaituan  -->
           <div class="zhe">
-            <img v-lazy="homeData.dapaituan" alt="">
+            <img :src="homeData.dapaituan" alt="">
           </div>
           <!-- 12、特价轮播    tejia_baner -->
           <div class="swiper-container tejia">
@@ -140,12 +140,12 @@
             <div class="ul_wrap" v-for="(ul_list,index) in homeData.haohuo_list" :key="index">
               <ul class="ul_container">
                 <li class="item"  v-for="(left_ul,index) in ul_list.left" :key="index">
-                  <img v-lazy="left_ul" alt="">
+                  <img :src="left_ul" alt="">
                 </li>
               </ul>
               <ul class="ul_container">
                 <li class="item"  v-for="(right_ul,index) in ul_list.right" :key="index">
-                  <img v-lazy="right_ul" alt="">
+                  <img :src="right_ul" alt="">
                 </li>
               </ul>
             </div>
@@ -153,45 +153,45 @@
           <!-- 15、最惨奖  zuican -->
           <div class="can">
             <a href="javascript:;" class="can_img">
-              <img :v-lazy="homeData.zuican" alt="">
+              <img :src="homeData.zuican" alt="">
             </a>
           </div>
           <!-- 16、留言区 zuican_content -->
           <div class="liuyan">
             <a href="javascript:;" class="liuyan_img">
-              <img v-lazy="homeData.zuican_content" alt="">
+              <img :src="homeData.zuican_content" alt="">
             </a>
           </div>
           <!-- 17、特别星期  special -->
           <div class="xing">
             <a href="javascript:;" class="xing_img">
-              <img v-lazy="homeData.special" alt="">
+              <img :src="homeData.special" alt="">
             </a>
           </div>
           <!-- 18、潮品预售   special_list -->
           <div class="chaopin">
             <div class="chaopin_left">
               <a href="javascript:;" class="chaopin_left_img" v-if="homeData.special_list">
-                <img v-lazy="homeData.special_list.special_left" alt="">
+                <img :src="homeData.special_list.special_left" alt="">
               </a>
             </div>
             <div class="chaopin-right" v-if="homeData.special_list">
               <a href="javascript:;" class="chaopin_right_img" v-for="special in homeData.special_list.special_right">
-                <img v-lazy="special" alt="">
+                <img :src="special" alt="">
               </a>
             </div>
           </div>
           <!-- 19、栏目  lanmu -->
           <div class="lanmu">
             <a href="javascript:;" class="lanmu_img">
-              <img v-lazy="homeData.lanmu" alt="">
+              <img :src="homeData.lanmu" alt="">
             </a>
           </div>
           <!--  20、总和栏目  lanmu_list-->
           <div class="zonghe">
             <ul class="lanmu1" v-for="(lanmus,index) in homeData.lanmu_list" :key="index">
               <li v-for="(lanmu,index2) in lanmus" :key="index2">
-                <img v-lazy="lanmu" alt="">
+                <img :src="lanmu" alt="">
               </li>
             </ul>
           </div>
